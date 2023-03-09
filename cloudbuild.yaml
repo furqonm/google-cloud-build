@@ -23,13 +23,13 @@ steps:
   - '--image'
   - '${_IMAGE}:latest'
   - '--region'
-  - '${LOCATION}'
+  - 'us-central1'
   - '--platform'
   - 'managed'
   - '--allow-unauthenticated'
 
 substitutions:
-    _IMAGE: '${LOCATION}-docker.pkg.dev/${PROJECT_ID}/quickstart-repo/hello-word'
+    _IMAGE: 'us-central1-docker.pkg.dev/${PROJECT_ID}/quickstart-repo/hello-word'
 
 options:
     dynamic_substitutions: true
