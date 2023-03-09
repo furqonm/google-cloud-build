@@ -1,0 +1,34 @@
+steps:
+- id: build-image
+  name: 'gcr.io/cloud-builders/docker'
+  args: [ 'build', '-t', '${_IMAGE}:1.0.${BUILD_ID}', '-t', '${_IMAGE}:latest', '.' ]
+
+- id: scan-image
+  name: 'aquasec/trivy'
+  args: [ 'image', '${_IMAGE}:latest', '--severity', 'HIGH,CRITICAL']
+  waitFor:
+  - build-image
+
+- id: push-image
+  name: 'gcr.io/cloud-builders/docker'
+  args: [ 'push', '--all-tags', '${_IMAGE}']
+  waitFor:
+  - build-image
+
+- name: 'gcr.io/cloud-builders/gcloud'
+  args:
+  - 'run'
+  - 'deploy'
+  - 'cloudrunservice'
+  - '--image'
+  - '${_IMAGE}:latest'
+  - '--region'
+  - '${LOCATION}'
+  - '--platform'
+  - 'managed'
+  - '--allow-unauthenticated'
+
+substitutions:
+    _IMAGE: '${LOCATION}-docker.pkg.dev/${PROJECT_ID}/quickstart-repo/hello-word'
+options:
+    dynamic_substitutions: true
