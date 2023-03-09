@@ -30,6 +30,5 @@ steps:
 
 substitutions:
     _IMAGE: 'us-central1-docker.pkg.dev/${PROJECT_ID}/quickstart-repo/hello-word'
-
 options:
     dynamic_substitutions: true
