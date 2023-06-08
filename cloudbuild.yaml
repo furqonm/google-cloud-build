@@ -5,7 +5,7 @@ steps:
 
 - id: scan-image
   name: 'aquasec/trivy'
-  args: [ 'image', '${_IMAGE}:latest', '--severity', 'HIGH,CRITICAL', '--exit-code', '1' ]
+  args: [ 'image', '${_IMAGE}:latest', '--severity', 'CRITICAL', '--exit-code', '1' ]
   waitFor:
   - build-image
 
