@@ -29,7 +29,7 @@ steps:
   - '--allow-unauthenticated'
 
 substitutions:
-    _IMAGE: 'us-central1-docker.pkg.dev/${PROJECT_ID}/quickstart-repo/hello-word'
+    _IMAGE: 'gcr.io/${PROJECT_ID}/podinfo'
 
 options:
     dynamic_substitutions: true
